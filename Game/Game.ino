@@ -13,7 +13,7 @@ int applev = 2;
 
 int snakelength;
 
-int direct = 0;
+int direct = 2;
 
 
 int snakever[79];
@@ -44,24 +44,37 @@ void loop() {
   xmap = map(xdata, 0, 1023, 0, 255);
   ymap = map(ydata, 0 , 1023, 0, 255);
 
-  if (xmap < 90) {
-    snakeheadV++;
+  if (xmap < 80) {
+    direct = 0;
   }
-  else if (xmap > 170) {
-    snakeheadV--;
+  else if (xmap > 180) {
+    direct = 1;
   }
-  else if (ymap > 150) {
-    snakeheadH++;
+  else if (ymap > 170) {
+    direct = 2;
   }
-  else if (ymap < 90) {
-    snakeheadH--;
+  else if (ymap < 80) {
+    direct = 3;
   }
 
+  if (direct == 0) {
+    snakeheadV++;
+  }
+  else if (direct == 1) {
+    snakeheadV--;
+  }
+  else if (direct == 2) {
+    snakeheadH++;
+  }
+  else if (direct == 3) {
+    snakeheadH--;
+  }
+  
   if (snakeheadH < 0 || snakeheadH > 19 || snakeheadV < 0 || snakeheadV > 3) {
     lcd.clear();
     while (1 == 1) {
       lcd.setCursor(2, 1);
-      lcd.print("YOU SUCK ASS");
+      lcd.print("YOU SUCK");
     }
   }
   snakeapple();
@@ -69,7 +82,7 @@ void loop() {
   printsnake();
 
 
-  delay(250);
+  delay(500);
 
   lcd.clear();
 }
